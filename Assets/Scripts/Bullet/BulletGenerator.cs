@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletGenerator : MonoBehaviour
+public abstract class  BulletGenerator : MonoBehaviour
 {
     [SerializeField] private ObjectPool<Bullet> _pool;
 
@@ -13,5 +11,5 @@ public class BulletGenerator : MonoBehaviour
         pipe.transform.rotation = rotation;
 
         return pipe;
-    }
+    }    
 }

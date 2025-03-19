@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), (typeof(SpriteRenderer)))]
@@ -28,10 +26,11 @@ public abstract class Bullet : MonoBehaviour
     {
         if (collision.TryGetComponent(out IDestroyable destroyable))
         {
-            OnDestoyableObjectAction(destroyable);
+            //OnDestoyableObjectAction(destroyable);
+            destroyable.Destroy();
         }
     }
 
-    protected abstract void OnDestoyableObjectAction(IDestroyable destroyable);
-    
+    /* protected abstract void OnDestoyableObjectAction(IDestroyable destroyable);*/
+
 }

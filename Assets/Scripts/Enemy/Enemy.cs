@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 [SelectionBase]
@@ -8,27 +9,35 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDestroyable, IInteracteble 
 {
     [SerializeField] private EnemyShooter _shooter;
-    [SerializeField] private bool _isVisible=false;
+    private bool _isActivated = false;    
 
-    public event Action<Enemy> Destroyed;
+    public event Action<Enemy> Destroyed;   
 
-    private void Start()
+    public void ActivateShooter(EnemyBulletGenerator bulletGenerator)
     {
-        //_shooter = FindAnyObjectByType<EnemyShooter>();
-        _isVisible = false;
-
-        //_shooter.StartShooting();
+        if (_isActivated)
+        {
+            return;
+        }        
+        _isActivated = true;
+        _shooter.SetBulletGenerator(bulletGenerator);
     }
-
     private void OnBecameVisible()
     {
         Debug.Log("Visible");
-        _isVisible = true;
-        _shooter.StartShooting();
+
+        if (_isActivated)
+        {
+            _shooter.StartShooting();
+        }
+        else
+        {
+            throw new Exception("Enemy "+ToString() +" doesn't activated with shooter");
+        }
     }
 
     public void Destroy()
-    {
+    {        
         Destroyed?.Invoke(this);
     }    
 }

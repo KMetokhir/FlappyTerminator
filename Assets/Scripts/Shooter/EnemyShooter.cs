@@ -7,18 +7,28 @@ public class EnemyShooter : Shooter
     [SerializeField] private uint _shootDelay;
     [SerializeField] private bool _isShotng;
 
-    private Coroutine _coroutine; 
-    
+    private Coroutine _coroutine;
+
     private void Update()
     {
         _isShotng = _coroutine != null;
     }
 
+    public void SetBulletGenerator(BulletGenerator bulletGenerator)
+    {
+        if (_bulletGenerator != null)
+        {
+            return;
+        }
+
+        _bulletGenerator = bulletGenerator;
+    }
+
     public void StartShooting()
     {
-        if(_coroutine != null)
+        if (_coroutine != null)
         {
-            return;           
+            return;
         }
 
         _coroutine = StartCoroutine(BurstFire(_shootDelay));
@@ -36,7 +46,7 @@ public class EnemyShooter : Shooter
 
         while (enabled)
         {
-            Shoot();   
+            Shoot();
             yield return wait;
         }
     }

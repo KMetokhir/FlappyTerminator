@@ -24,7 +24,7 @@ public class ObjectPool <T>: MonoBehaviour
         if(_pool.Count == 0)
         {
             T newObject = Instantiate(_prefab);//.GetComponent<T>();
-            //pipe.transform.parent = _container;
+            //newObject.transform.parent = _container;
             ObjectGeted?.Invoke(newObject);
 
             return newObject;

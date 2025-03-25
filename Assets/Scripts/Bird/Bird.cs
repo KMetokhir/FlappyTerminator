@@ -27,27 +27,22 @@ public class Bird : MonoBehaviour, IDestroyable
         _birdCollisionHandler.CollisionDetected -= ProcessCollision;
     }
 
-    private void ProcessCollision(IInteracteble interacteble)
-    {
-        if(interacteble is Enemy || interacteble is Earth)
-        {
-            GameOver?.Invoke();           
-        }
-
-        if(interacteble is ScoreZone)
-        {
-            _scoreCounter.Add();
-        }
-    }
-
     public void Reset()
     {
         _scoreCounter.Reset();
-        _birdMover.Reset();    
+        _birdMover.Reset();
     }
 
     public void Destroy()
     {
         GameOver?.Invoke();
+    }
+
+    private void ProcessCollision(IInteracteble interacteble)
+    {
+        if (interacteble is Enemy || interacteble is Earth)
+        {
+            GameOver?.Invoke();
+        }
     }
 }

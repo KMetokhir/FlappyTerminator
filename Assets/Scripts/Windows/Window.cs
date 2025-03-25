@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,7 @@ public abstract class Window : MonoBehaviour
     protected CanvasGroup WindowGroup => _windowGroup;
     protected Button ActionButton => _actionButton;
 
-    private  void OnEnable()
+    private void OnEnable()
     {
         _actionButton.onClick.AddListener(OnButtonClick);
     }
@@ -25,5 +24,4 @@ public abstract class Window : MonoBehaviour
     public abstract void Close();
 
     protected abstract void OnButtonClick();
-   
 }

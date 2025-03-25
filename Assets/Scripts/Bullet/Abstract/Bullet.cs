@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), (typeof(SpriteRenderer)))]
 public abstract class Bullet : MonoBehaviour
 {
     private Rigidbody2D _rigidbody2D;
+
+    public event Action<Bullet> BecameInvisible;
 
     private void Awake()
     {
@@ -13,24 +16,20 @@ public abstract class Bullet : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        Debug.Log("Becom Invisible " + gameObject.name);
-        gameObject.SetActive(false);
-    }
-
-    public void AddForce(float magnitude)
-    {
-        _rigidbody2D.velocity = transform.right * magnitude;
+        BecameInvisible?.Invoke(this);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out IDestroyable destroyable))
         {
-            //OnDestoyableObjectAction(destroyable);
             destroyable.Destroy();
+            BecameInvisible?.Invoke(this);
         }
     }
 
-    /* protected abstract void OnDestoyableObjectAction(IDestroyable destroyable);*/
-
+    public void AddForce(float magnitude)
+    {
+        _rigidbody2D.velocity = transform.right * magnitude;
+    }
 }

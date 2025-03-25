@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class EnemyGenerator : MonoBehaviour
-  
 {
     [SerializeField] private float _delay;
     [SerializeField] private float _lowerBound;
@@ -14,11 +10,6 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField] private EnemyBulletGenerator _bulletGenerator;
 
     private Coroutine _coroutine;
-
-    /*private void Start()
-    {
-        
-    }*/
 
     public void Generate()
     {
@@ -33,7 +24,7 @@ public class EnemyGenerator : MonoBehaviour
     public void Restart()
     {
         _pool.Restart();
-        Generate();       
+        Generate();
     }
 
     private IEnumerator GenerateEnemies()
@@ -45,15 +36,16 @@ public class EnemyGenerator : MonoBehaviour
             Enemy enemy = _pool.GetObject();
             enemy.ActivateShooter(_bulletGenerator);
             Spawn(enemy);
+
             yield return wait;
         }
     }
 
     private void Spawn(Enemy enemy)
     {
-        float spawnPositionY = Random.Range(_upperBound, _lowerBound);
-        Vector3 spawnPoimt = new Vector3(transform.position.x, spawnPositionY, transform.position.z);
-        
-        enemy.transform.position = spawnPoimt;
+        float spawnPositionY = UnityEngine.Random.Range(_upperBound, _lowerBound);
+        Vector3 spawnPoint = new Vector3(transform.position.x, spawnPositionY, transform.position.z);
+
+        enemy.transform.position = spawnPoint;
     }
 }

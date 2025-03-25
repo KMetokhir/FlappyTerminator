@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private Bird _bird;
-    [SerializeField] private EnemyGenerator _pipeGenerator;
+    [SerializeField] private EnemyGenerator _enemyGenerator;
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private EndGameScreen _endGameScreen;
 
@@ -36,7 +33,7 @@ public class Game : MonoBehaviour
     private void OnGameOverProcessed()
     {
         StopGame();
-        _endGameScreen.Open();        
+        _endGameScreen.Open();
     }
 
     private void OnRestartButtonClicked()
@@ -44,7 +41,7 @@ public class Game : MonoBehaviour
         _endGameScreen.Close();
         StartGame();
 
-       _pipeGenerator.Restart();
+        _enemyGenerator.Restart();
     }
 
     private void OnPlayButtonPressed()
@@ -52,7 +49,7 @@ public class Game : MonoBehaviour
         _startScreen.Close();
         StartGame();
 
-        _pipeGenerator.Generate();
+        _enemyGenerator.Generate();
     }
 
     private void StopGame()
@@ -62,7 +59,7 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
-        Time.timeScale=1.0f;
-        _bird.Reset();       
+        Time.timeScale = 1.0f;
+        _bird.Reset();
     }
 }

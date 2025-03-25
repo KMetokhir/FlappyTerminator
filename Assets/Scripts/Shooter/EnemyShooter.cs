@@ -1,20 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShooter : Shooter
+public class EnemyShooter : Shooter<EnemyBullet>
 {
     [SerializeField] private uint _shootDelay;
-    [SerializeField] private bool _isShotng;
 
     private Coroutine _coroutine;
 
-    private void Update()
+    private void OnDisable()
     {
-        _isShotng = _coroutine != null;
+        _coroutine = null;
     }
 
-    public void SetBulletGenerator(BulletGenerator bulletGenerator)
+    public void SetBulletGenerator(BulletGenerator<EnemyBullet> bulletGenerator)
     {
         if (_bulletGenerator != null)
         {
@@ -32,12 +30,6 @@ public class EnemyShooter : Shooter
         }
 
         _coroutine = StartCoroutine(BurstFire(_shootDelay));
-
-    }
-
-    public void StopShooting()
-    {
-
     }
 
     private IEnumerator BurstFire(uint delay)

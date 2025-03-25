@@ -9,7 +9,6 @@ public class StartScreen : Window
         WindowGroup.alpha = 0f;
         WindowGroup.blocksRaycasts = false;
         ActionButton.interactable = false;
-        
     }
 
     public override void Open()
@@ -22,5 +21,5 @@ public class StartScreen : Window
     protected override void OnButtonClick()
     {
         PlayButtonPressed?.Invoke();
-    }   
+    }
 }

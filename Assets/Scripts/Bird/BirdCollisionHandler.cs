@@ -13,9 +13,9 @@ public class BirdCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent(out IInteracteble interacteble))
+        if (collision.TryGetComponent(out IInteracteble interacteble))
         {
-            CollisionDetected?.Invoke(interacteble);           
+            CollisionDetected?.Invoke(interacteble);
         }
     }
 }
